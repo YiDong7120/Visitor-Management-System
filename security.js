@@ -50,12 +50,12 @@ class Security {
         return user;
     }
 
-    // // Read Visitor
-    // static async getVisitor(randomName) {
-    //     return await visitors.findOne({ visitor_name: randomName })
-    // }
+    // Read Visitor
+    static async getVisitor(randomName) {
+        return await visitors.findOne({ visitor_name: randomName })
+    }
 
-    //Update User
+    //Update Security
     static async update(username, newusername) {
         
     // TODO: Check if username exists
@@ -68,7 +68,7 @@ class Security {
         return { status: "Updated" }
     }    
     
-    // Delete User
+    // Delete Security
     static async delete(username) {
         await security.deleteOne({ username: username })
         return { status: "Deleted"};

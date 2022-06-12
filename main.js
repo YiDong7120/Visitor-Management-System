@@ -36,11 +36,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-	res.send('Hello World')
+	res.send('Welcome to Hospital Visitor Management System')
 })
 
 app.get('/hello', (req, res) => {
-	res.send('Hello BENR2423')
+	res.send('Hello from BENR2423')
 })
 
 
@@ -146,7 +146,7 @@ app.delete('/delete', async (req, res) => {
 })
 /////////////////////////////////////////////////
 
-app.post('/loginsecu', async (req, res) => {
+app.post('/login', async (req, res) => {
 	console.log(req.body);
 
 	let user = await Security.login(req.body.username, req.body.password);
@@ -193,10 +193,10 @@ app.delete('/delete', async (req, res) => {
 	return res.status(200).send("Delete success!");
 })
 
-// app.get('visitor/:id', async (req, res) => {
-// 	console.log(req.params.id);
-// 	res.status(200).json({})
-// 	})
+app.get('visitor/:id', async (req, res) => {
+	console.log(req.params.id);
+	res.status(200).json({})
+	})
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
