@@ -16,7 +16,7 @@ describe("User Account", () => {
 	})
 
 	test("New user registration", async () => {
-		const res = await User.register("Gan", "Password")
+		const res = await User.register("Arif", "Password")
 		expect(res).not.toBeUndefined();
 	})
 
@@ -51,7 +51,7 @@ describe("User Account", () => {
 	});
 
 	test(("Delete user"), async () => {
-		const res = await User.delete("Gan")
+		const res = await User.delete("Arif")
 		expect(res.status).toBe("Deleted")
 	});
 });
