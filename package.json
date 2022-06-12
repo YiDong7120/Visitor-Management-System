@@ -1,0 +1,36 @@
+{
+  "name": "benr2423-vms",
+  "version": "1.0.0",
+  "description": "BENR2423 Visitor Management System",
+  "main": "main.js",
+  "engines": {
+    "node": "16.10.0"
+  },
+  "scripts": {
+    "start": "node main.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.1",
+    "jest": "^27.5.1",
+    "mongodb": "^4.5.0",
+    "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^2.2.1",
+    "supertest": "^6.2.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YiDong7120/VMS2.0.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YiDong7120/VMS2.0/issues"
+  },
+  "homepage": "https://github.com/YiDong7120/VMS2.0#readme"
+}
