@@ -1,39 +1,88 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2ozfn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-const { faker } = require('@faker-js/faker');
-const bcrypt = require("bcryptjs");
-const randomId = faker.datatype.uuid();
-const randomName = faker.name.findName(); 
-const randomAge = faker.datatype.number({ min: 18, max: 60 });
-const randomAddress = faker.address.streetAddress(true);
-const randomCity = faker.address.city();
-const randomEmail = faker.internet.email(); 
-const randomPhone = faker.phone.phoneNumber('01# - ### ####');
-const password = "mypass123"
-const saltRounds = 10
+const bcrypt = require("bcryptjs")
+let users
+let sessions
 
-client.connect(async err => {
-	if(err) {
-		console.log(err.message)
-		return
-	}
-	console.log('Connected to MongoDB');
-
-console.time('Insert')
-const hash = await bcrypt.hash(password, saltRounds);
-let result = await client.db('Visitor-Management-System').collection('User').insertOne(
-    {
-        user_id: randomId,
-        user_name: randomName,
-        user_age: randomAge,
-		user_address: randomAddress,
-        user_city: randomCity,
-        user_email: randomEmail,
-		user_phone: randomPhone,
-		user_pass: hash,
+class User {
+  static async injectDB(conn) {
+    if (users && sessions) {
+      return
     }
-)
-console.timeEnd('Insert')
-console.log('Inserted 1 document', result);
-});
+    try {
+      users = await conn.db("Visitor-Management-System").collection("Users")
+      sessions = await conn.db("Visitor-Management-System").collection("Sessions")
+    } catch (e) {
+      console.error(`Unable to establish collection handles in user: ${e}`)
+    }
+  }
+//Find User
+  static async getUser(email) {
+    return await users.findOne({ email })
+  }
+  
+//Register User
+  static async addUser(userInfo) {
+    try {
+      const { name, email, password } = userInfo
+      const hashPassword = await bcrypt.hash(password, 10)
+      await users.insertOne({ name, email, password: hashPassword }, {w: 'majority'})
+      return { success: true }
+    } catch (e) {
+      if ( users.email == userInfo.email ) {
+        return { error: "A user with the given email already exists." }
+      }
+      console.error(`Error occurred while adding new user, ${e}.`)
+      return { error: e }
+    }
+  }
+//Login User
+  static async loginUser(email, jwt) {
+    try {
+      await sessions.updateOne(
+        { "user_id": email },
+        { $set: { jwt } },
+        { upsert: true }
+      )
+      return { success: true }
+    } catch (e) {
+      console.error(`Error occurred while logging in user, ${e}`)
+      return { error: e }
+    }
+  }
+// //Logout User
+  static async logoutUser(email) {
+    try {
+      await sessions.deleteOne({ "user_id": email })
+      return { success: true }
+    } catch (e) {
+      console.error(`Error occurred while logging out user, ${e}`)
+      return { error: e }
+    }
+  }
+//Find Login
+  static async getUserSession(email) {
+    try {
+      return sessions.findOne({ "user_id": email })
+    } catch (e) {
+      console.error(`Error occurred while retrieving user session, ${e}`)
+      return null
+    }
+  }
+//Delete User
+  static async deleteUser(email) {
+    try {
+      await users.deleteOne({ email })
+      await sessions.deleteOne({ user_id: email })
+      if (!(await this.getUser(email)) && !(await this.getUserSession(email))) {
+        return { success: true }
+      } else {
+        console.error(`Deletion unsuccessful`)
+        return { error: `Deletion unsuccessful` }
+      }
+    } catch (e) {
+      console.error(`Error occurred while deleting user, ${e}`)
+      return { error: e }
+    }
+  }
+}
+
+module.exports = User;
