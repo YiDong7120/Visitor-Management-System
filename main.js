@@ -43,6 +43,7 @@ app.get('/hello', (req, res) => {
 	res.send('Hello from BENR2423')
 })
 
+//User
 
 app.post('/login', async (req, res) => {
 	console.log(req.body);
