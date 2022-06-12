@@ -1,6 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 const User = require("./user");
-
+const Security = require("./security");
 MongoClient.connect(
 	// TODO: Connection 
 	"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2ozfn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -144,11 +144,59 @@ app.delete('/delete', async (req, res) => {
 	await User.delete(req.body.username);
 	return res.status(200).send("Delete success!");
 })
+/////////////////////////////////////////////////
 
-app.get('visitor/:id', async (req, res) => {
-	console.log(req.params.id);
-	res.status(200).json({})
+app.post('/loginsecu', async (req, res) => {
+	console.log(req.body);
+
+	let user = await Security.login(req.body.username, req.body.password);
+	if (user.status == 'Invalid username' || user.status == 'Invalid password') {
+		res.status(401).send("Invalid username or password");
+		return
+	}
+
+	res.status(200).json({
+		_id: user._id,
+		username: user.username,
 	})
+})
+
+app.post('/register', async (req, res) => {
+	console.log(req.body);
+
+	let user = await Security.register(req.body.username, req.body.password);
+	if (user.status == 'Duplicate username') {
+		res.status(401).send("User already exits!");
+		return
+	}
+
+	res.status(200).send("Register success!");
+
+})
+
+app.patch('/update', async (req, res) => {
+	console.log(req.body);
+	
+	let user = await Security.update(req.body.username, req.body.newusername);
+	if (user.status == 'Invalid username') {
+		res.status(401).send("Invalid username");
+		return
+	}
+
+	res.status(200).send("Update success!");
+})
+
+app.delete('/delete', async (req, res) => {
+	console.log(req.body);
+
+	await Security.delete(req.body.username);
+	return res.status(200).send("Delete success!");
+})
+
+// app.get('visitor/:id', async (req, res) => {
+// 	console.log(req.params.id);
+// 	res.status(200).json({})
+// 	})
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)

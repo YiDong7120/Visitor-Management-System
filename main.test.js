@@ -85,6 +85,82 @@ describe('Express Route Test', function () {
 			.expect(200).then(response => {
 				expect(response.text).toEqual("Delete success!");
 			});
+	})
+
+/////////////////////////////////////////////
+	it('login successfully', async () => {
+		return request
+			.post('/login')
+			.send({ username: 'Idzwan', password: "Password" })
+			.expect('Content-Type', /json/)
+			.expect(200).then(response => {
+				expect(response.body).toEqual(
+					expect.objectContaining({
+						_id: expect.any(String),
+						username: expect.any(String),
+					})
+				);
+			});
 	});
 
+	it('login failed', async () => {
+		return request
+			.post('/login')
+			.send({ username: 'Idzwan', password: "Password-fail" })
+			.expect('Content-Type', /text/)
+			.expect(401)
+			.then(response => {
+				expect(response.text).toEqual("Invalid username or password")
+			});
+	});
+
+	it('register', async () => {
+		return request
+			.post('/register')
+			.send({ username: 'Arif', password: "Password" })
+			.expect('Content-Type', /text/)
+			.expect(200).then(response => {
+				expect(response.text).toEqual("Register success!");
+			});
+	});
+
+	it('register failed', async () => {
+		return request
+			.post('/register')
+			.send({ username: 'Idzwan', password: "Password" })
+			.expect('Content-Type', /text/)
+			.expect(401).then(response => {
+				expect(response.text).toEqual("User already exits!");
+			});
+	});
+
+	it('update', async () => {
+		return request
+			.patch('/update')
+			.send({ username: 'Idzwan', newusername: "Idzwan" })
+			.expect('Content-Type', /text/)
+			.expect(200).then(response => {
+				expect(response.text).toEqual("Update success!");
+			});
+	});
+
+	it('update failed', async () => {
+		return request
+			.patch('/update')
+			.send({ username: 'Idzwan-new', newusername: "Idzwan" })
+			.expect('Content-Type', /text/)
+			.expect(401).then(response => {
+				expect(response.text).toEqual("Invalid username");
+			});
+	})
+
+	it('delete', async () => {
+		return request
+			.delete('/delete')
+			.send({ username: 'Arif'})
+			.expect('Content-Type', /text/)
+			.expect(200).then(response => {
+				expect(response.text).toEqual("Delete success!");
+			});
+	})
 });

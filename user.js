@@ -11,6 +11,8 @@ class User {
         reservations = await conn.db("Visitor-Management-System").collection("Reservations")
 	}
 
+////////////////////////////////////////////
+
     // Register User
 	static async register(username, password) {
 
@@ -106,6 +108,8 @@ class User {
 		await visitors.deleteOne({ visitor_id: randomId })
         return { status: "Deleted"};
     }
+
+//////////////////////////////////////////////////////////////////
 
     // Create Reservation
     static async addReservation(randomBookingId, randomVehicle, randomBookingDate, randomPlate, randomId) {

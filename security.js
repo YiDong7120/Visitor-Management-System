@@ -12,7 +12,7 @@ class Security {
 	}
 
     // Register Security
-	static async addSecurity(username, password) {
+	static async register(username, password) {
 
         // TODO: Check if username exists
         const duplicate = await security.findOne({ username: username })
@@ -32,7 +32,7 @@ class Security {
 	}
 
     // Login Security
-	static async loginSecurity(username, password) {
+	static async login(username, password) {
 
 	    // TODO: Check if username exists
         const user = await security.findOne({ username: username })
@@ -50,29 +50,29 @@ class Security {
         return user;
     }
 
-    // Read Visitor
-    static async getVisitor(randomName) {
-        return await visitors.findOne({ visitor_name: randomName })
-    }
+    // // Read Visitor
+    // static async getVisitor(randomName) {
+    //     return await visitors.findOne({ visitor_name: randomName })
+    // }
 
     //Update User
-    static async updateUser(username, newusername) {
+    static async update(username, newusername) {
         
-        // TODO: Check if username exists
-        const user = await users.findOne({ username: username })
-        if(!user) {
-            return { status: "Invalid username" }
-        }
-    
-        await users.updateOne({ username: username }, { $set: { username: newusername }})
-        return { status: "Updated" }
+    // TODO: Check if username exists
+    const user = await security.findOne({ username: username })
+    if(!user) {
+        return { status: "Invalid username" }
     }
 
+        await security.updateOne({ username: username }, { $set: { username: newusername }})
+        return { status: "Updated" }
+    }    
+    
     // Delete User
-    static async deleteUser(username) {
-		await users.deleteOne({ username : username })
+    static async delete(username) {
+        await security.deleteOne({ username: username })
         return { status: "Deleted"};
-    }
+    }    
 
 }
 module.exports = Security;

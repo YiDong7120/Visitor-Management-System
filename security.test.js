@@ -17,27 +17,27 @@ describe("Security Account", () => {
 	})
 
 	test("New user registration", async () => {
-		const res = await Security.addSecurity("Idzwan", "Password")
+		const res = await Security.register("Arif", "Password")
 		expect(res).not.toBeUndefined();
 	})
 
 	test("Duplicate username", async () => {
-		const res = await Security.addSecurity("Idzwan", "Password")
+		const res = await Security.register("Idzwan", "Password")
 		expect(res.status).toBe("Duplicate username")
 	})
 
 	test("User login invalid username", async () => {
-		const res = await Security.loginSecurity("Idzy", "Drowssad")
+		const res = await Security.login("Idzy", "Password")
 		expect(res.status).toBe("Invalid username")
 	})
 
 	test("User login invalid password", async () => {
-		const res = await Security.loginSecurity("Idzwan", "Password-fail")
+		const res = await Security.login("Idzwan", "Password-fail")
 		expect(res.status).toBe("Invalid password")
 	})
 
 	test("User login successfully", async () => {
-		const res = await Security.loginSecurity("Idzwan", "Password")
+		const res = await Security.login("Idzwan", "Password")
 		expect(res).toEqual(
             expect.objectContaining({
                 username: expect.any(String),
@@ -46,18 +46,18 @@ describe("Security Account", () => {
 		);
     })
 
-	test("Read Visitor", async () => {
-		const res = await Security.getVisitor(User.randomName)
-		expect(res).not.toBeUndefined()
-	})
+	// test("Read Visitor", async () => {
+	// 	const res = await Security.getVisitor(User.randomName)
+	// 	expect(res).not.toBeUndefined()
+	// })
 
 	test("Update username", async () => {
-		const res = await Security.updateUser("Gan", "Gan")
+		const res = await Security.update("Idzwan", "Idzwan")
 		expect(res.status).toBe("Updated")
 	})
 
-	test("Delete User", async () => {
-		const res = await Security.deleteUser("Intan")
+	test(("Delete user"), async () => {
+		const res = await Security.delete("Arif")
 		expect(res.status).toBe("Deleted")
 	})
 })
