@@ -10,6 +10,7 @@ describe("Security Account", () => {
 			{ useNewUrlParser: true },
 		);
 		Security.injectDB(client);
+		User.injectDB(client);
 	})
 
 	afterAll(async () => {
@@ -46,19 +47,35 @@ describe("Security Account", () => {
 		);
     })
 
-	test("Read Visitor", async () => {
-		const res = await Security.getVisitor(User.randomName)
-		expect(res).not.toBeUndefined()
-	})
-
 	test("Update username", async () => {
 		const res = await Security.update("Idzwan", "Idzwan")
 		expect(res.status).toBe("Updated")
 	})
 
-	test(("Delete user"), async () => {
+	test(("Delete security"), async () => {
 		const res = await Security.delete("Arif")
 		expect(res.status).toBe("Deleted")
 	})
+
+	test(("Read User"), async () => {
+		const res = await Security.getUser("Idzwan")
+		expect(res).not.toBeUndefined()
+	})
+
+	test("Update username", async () => {
+		const res = await Security.updateUser("Gan", "Gan")
+		expect(res.status).toBe("Updated")
+	})
+
+	test(("Delete user"), async () => {
+		const res = await Security.deleteUser("Arif")
+		expect(res.status).toBe("Deleted")
+	})
+
+	test("Read Visitor", async () => {
+		const res = await Security.getVisitor(User.randomName)
+		expect(res).not.toBeUndefined()
+	})
+
 })
 

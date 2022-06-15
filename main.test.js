@@ -37,7 +37,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('register', async () => {
+	it('register user', async () => {
 		return request
 			.post('/user/register')
 			.send({ username: 'Arif', password: "Password" })
@@ -77,7 +77,7 @@ describe('Express Route Test', function () {
 			});
 	})
 
-	it('delete', async () => {
+	it('delete user', async () => {
 		return request
 			.delete('/user/delete')
 			.send({ username: 'Arif'})

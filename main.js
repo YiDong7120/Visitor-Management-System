@@ -1,6 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const User = require("./user");
 const Security = require("./security");
+const Visitor = require("./visitor");
 MongoClient.connect(
 	// TODO: Connection 
 	"mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2ozfn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -12,6 +13,7 @@ MongoClient.connect(
 	console.log('Connected to MongoDB');
 	User.injectDB(client);
 	Security.injectDB(client);
+	Visitor.injectDB(client);
 })
 
 const express = require('express')
@@ -24,7 +26,7 @@ const options = {
 	definition: {
 		openapi: '3.0.0',
 		info: {
-			title: 'Welcome to Gan Hospital Visitor Management System',
+			title: 'Welcome to Hospital Visitor Management System',
 			version: '1.0.0',
 		},
 	},
@@ -162,7 +164,7 @@ app.post('/user/register', async (req, res) => {
 app.patch('/user/update', async (req, res) => {
 	console.log(req.body);
 	
-	let user = await User.update(req.body.username, req.body.newusername);
+	let user = await Security.updateUser(req.body.username, req.body.newusername);
 	if (user.status == 'Invalid username') {
 		res.status(401).send("Invalid username");
 		return
@@ -214,7 +216,7 @@ app.patch('/user/update', async (req, res) => {
 app.delete('/user/delete', async (req, res) => {
 	console.log(req.body);
 
-	await User.delete(req.body.username);
+	await Security.deleteUser(req.body.username);
 	return res.status(200).send("Delete success!");
 })
 
