@@ -6,7 +6,7 @@ let visitors;
 
 class Security {
 	static async injectDB(conn) {
-        security = await conn.db("Visitor-Management-System").collection("Security");
+        security = await conn.db("Visitor-Management-System").collection("Security")
 		users = await conn.db("Visitor-Management-System").collection("Users")
         visitors = await conn.db("Visitor-Management-System").collection("Visitors")
 	}

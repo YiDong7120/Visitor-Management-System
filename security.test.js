@@ -46,10 +46,10 @@ describe("Security Account", () => {
 		);
     })
 
-	// test("Read Visitor", async () => {
-	// 	const res = await Security.getVisitor(User.randomName)
-	// 	expect(res).not.toBeUndefined()
-	// })
+	test("Read Visitor", async () => {
+		const res = await Security.getVisitor(User.randomName)
+		expect(res).not.toBeUndefined()
+	})
 
 	test("Update username", async () => {
 		const res = await Security.update("Idzwan", "Idzwan")

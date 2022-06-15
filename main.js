@@ -11,6 +11,7 @@ MongoClient.connect(
 }).then(async client => {
 	console.log('Connected to MongoDB');
 	User.injectDB(client);
+	Security.injectDB(client);
 })
 
 const express = require('express')
@@ -43,9 +44,13 @@ app.get('/hello', (req, res) => {
 	res.send('Hello from BENR2423')
 })
 
-//User
+////////////////////////////////////////////////////////////
+//                                                        //
+//                          User                          //
+//                                                        //
+////////////////////////////////////////////////////////////
 
-app.post('/login', async (req, res) => {
+app.post('/user/login', async (req, res) => {
 	console.log(req.body);
 
 	let user = await User.login(req.body.username, req.body.password);
@@ -57,12 +62,13 @@ app.post('/login', async (req, res) => {
 	res.status(200).json({
 		_id: user._id,
 		username: user.username,
+		// token:generateAccessToken({ _id: user._id, username: user.username })
 	})
 })
 
 /**
  * @swagger
- * /login:
+ * /user/login:
  *   post:
  *     description: User Login
  *     requestBody:
@@ -100,7 +106,7 @@ app.post('/login', async (req, res) => {
  *           type: string
  */
 
-app.post('/register', async (req, res) => {
+app.post('/user/register', async (req, res) => {
 	console.log(req.body);
 
 	let user = await User.register(req.body.username, req.body.password);
@@ -115,7 +121,7 @@ app.post('/register', async (req, res) => {
 
 /**
  * @swagger
- * /register:
+ * /user/register:
  *   post:
  *     description: User Register
  *     requestBody:
@@ -153,7 +159,7 @@ app.post('/register', async (req, res) => {
  *           type: string
  */
 
-app.patch('/update', async (req, res) => {
+app.patch('/user/update', async (req, res) => {
 	console.log(req.body);
 	
 	let user = await User.update(req.body.username, req.body.newusername);
@@ -167,7 +173,7 @@ app.patch('/update', async (req, res) => {
 
 /**
  * @swagger
- * /update:
+ * /user/update:
  *   patch:
  *     description: User Update
  *     requestBody:
@@ -205,7 +211,7 @@ app.patch('/update', async (req, res) => {
  *           type: string
  */
 
-app.delete('/delete', async (req, res) => {
+app.delete('/user/delete', async (req, res) => {
 	console.log(req.body);
 
 	await User.delete(req.body.username);
@@ -214,7 +220,7 @@ app.delete('/delete', async (req, res) => {
 
 /**
  * @swagger
- * /delete:
+ * /user/delete:
  *   delete:
  *     description: User Delete
  *     requestBody:
@@ -248,7 +254,7 @@ app.delete('/delete', async (req, res) => {
  *           type: string
  */
 
-app.delete('/deleteVisitor', async (req, res) => {
+app.delete('/user/deleteVisitor', async (req, res) => {
 	console.log(req.body);
 
 	await User.deleteVisitor(req.params.visitor_id);
@@ -256,7 +262,7 @@ app.delete('/deleteVisitor', async (req, res) => {
 
 })
 
-app.delete('/deleteReservation', async (req, res) => {
+app.delete('/user/deleteReservation', async (req, res) => {
 	console.log(req.body);
 
 	await User.deleteReservation(req.params.reservation_id);
@@ -265,7 +271,7 @@ app.delete('/deleteReservation', async (req, res) => {
 })
 /////////////////////////////////////////////////
 
-app.post('/login', async (req, res) => {
+app.post('/security/login', async (req, res) => {
 	console.log(req.body);
 
 	let user = await Security.login(req.body.username, req.body.password);
@@ -280,7 +286,47 @@ app.post('/login', async (req, res) => {
 	})
 })
 
-app.post('/register', async (req, res) => {
+/**
+ * @swagger
+ * /security/login:
+ *   post:
+ *     description: Security Login
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *               password: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Security'
+ *       401:
+ *         description: Invalid username or password
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Security:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         username: 
+ *           type: string
+ */
+
+app.post('/security/register', async (req, res) => {
 	console.log(req.body);
 
 	let user = await Security.register(req.body.username, req.body.password);
@@ -293,7 +339,47 @@ app.post('/register', async (req, res) => {
 
 })
 
-app.patch('/update', async (req, res) => {
+/**
+ * @swagger
+ * /security/register:
+ *   post:
+ *     description: Security Register
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *               password: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Register success!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Security'
+ *       401:
+ *         description: User already exits!
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Security:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         username: 
+ *           type: string
+ */
+
+app.patch('/security/update', async (req, res) => {
 	console.log(req.body);
 	
 	let user = await Security.update(req.body.username, req.body.newusername);
@@ -305,30 +391,124 @@ app.patch('/update', async (req, res) => {
 	res.status(200).send("Update success!");
 })
 
-app.delete('/delete', async (req, res) => {
+/**
+ * @swagger
+ * /security/update:
+ *   patch:
+ *     description: Security Update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *               newusername: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Update success!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Security'
+ *       401:
+ *         description: Invalid username
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Security:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         username: 
+ *           type: string
+ */
+
+app.delete('/security/delete', async (req, res) => {
 	console.log(req.body);
 
 	await Security.delete(req.body.username);
 	return res.status(200).send("Delete success!");
 })
 
-//Open to all
-app.get('/visitor/:id', async (req, res) => {
-	console.log(req.body);
-
-	let visitor = await User.getVisitor(req.params.visitor_id);
-	res.status(200).json(visitor)
-
-})
+/**
+ * @swagger
+ * /security/delete:
+ *   delete:
+ *     description: Security Delete
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Delete success!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Security'
+ */
 
 /**
  * @swagger
- * /visitor,{id}:
+ * components:
+ *   schemas:
+ *     Security:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         username: 
+ *           type: string
+ */
+
+//////////////////////////////////////////////////////////////
+
+// app.use(verifyToken);
+
+// //Open to all
+// app.get('/visitor/:id', async (req, res) => {
+// 	console.log(req.body);
+
+// 	let visitor = await User.getVisitor(req.params.visitor_id);
+// 	res.status(200).json(visitor)
+
+// })
+
+app.get('visitor/:id', async (req, res) => {
+	console.log(req.params.id);
+	console.log(req.body);
+	console.log(req.params);
+	console.log(req.params.visitor_id);
+
+	let visitor = await User.getVisitor(req.params.visitor_id);
+
+	if (visitor)
+		res.status(200).json(visitor);
+	else
+		res.status(404).send("Invalid visitor id");
+	})
+	
+/**
+ * @swagger
+ * /visitor/{id}:
  *   get:
  *     description: Get visitor information
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: visitor_id
  *         schema:
  *           type: string
  *         required: true
@@ -360,3 +540,22 @@ app.get('/reservation/:id', async (req, res) => {
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`)
 })
+
+// const jwt = require('jsonwebtoken'); 
+// function generateAccessToken(payload) {
+// return jwt.sign(payload, "my-super-secret", { expiresIn: '1h' }); 
+// }
+
+// function verifyToken(req, res, next) {
+// 	const authHeader = req.headers['authorization'] 
+// 	const token = authHeader && authHeader.split(' ')[1]
+
+// 	if (token == null) return res.sendStatus(401)
+// 	jwt.verify(token, "my-super-secret", (err, user) => { 
+// 		console.log(err)
+
+// 	if (err) return res.sendStatus(403) 
+// 	req.user = user
+// 	next () 
+// 	})
+// };

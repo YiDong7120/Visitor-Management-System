@@ -13,7 +13,7 @@ describe('Express Route Test', function () {
 
 	it('login successfully', async () => {
 		return request
-			.post('/login')
+			.post('/user/login')
 			.send({ username: 'Gan', password: "Password" })
 			.expect('Content-Type', /json/)
 			.expect(200).then(response => {
@@ -28,7 +28,7 @@ describe('Express Route Test', function () {
 
 	it('login failed', async () => {
 		return request
-			.post('/login')
+			.post('/user/login')
 			.send({ username: 'Gan', password: "Password-fail" })
 			.expect('Content-Type', /text/)
 			.expect(401)
@@ -39,7 +39,7 @@ describe('Express Route Test', function () {
 
 	it('register', async () => {
 		return request
-			.post('/register')
+			.post('/user/register')
 			.send({ username: 'Arif', password: "Password" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -49,7 +49,7 @@ describe('Express Route Test', function () {
 
 	it('register failed', async () => {
 		return request
-			.post('/register')
+			.post('/user/register')
 			.send({ username: 'Gan', password: "Password" })
 			.expect('Content-Type', /text/)
 			.expect(401).then(response => {
@@ -59,7 +59,7 @@ describe('Express Route Test', function () {
 
 	it('update', async () => {
 		return request
-			.patch('/update')
+			.patch('/user/update')
 			.send({ username: 'Gan', newusername: "Gan" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -69,7 +69,7 @@ describe('Express Route Test', function () {
 
 	it('update failed', async () => {
 		return request
-			.patch('/update')
+			.patch('/user/update')
 			.send({ username: 'Gan-new', newusername: "Gan" })
 			.expect('Content-Type', /text/)
 			.expect(401).then(response => {
@@ -79,7 +79,7 @@ describe('Express Route Test', function () {
 
 	it('delete', async () => {
 		return request
-			.delete('/delete')
+			.delete('/user/delete')
 			.send({ username: 'Arif'})
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -89,7 +89,7 @@ describe('Express Route Test', function () {
 
 	it('delete visitor', async () => {
 		return request
-			.delete('/deleteVisitor')
+			.delete('/user/deleteVisitor')
 			.send({ visitor_id: "f4f5a27c-7d3d-40b5-b508-35debc009d84" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -99,7 +99,7 @@ describe('Express Route Test', function () {
 
 	it('delete reservation', async () => {
 		return request
-			.delete('/deleteReservation')
+			.delete('/user/deleteReservation')
 			.send({ reserve_id: "25112e65-64d1-4a0c-9f87-6951d1bf4ea4" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -111,7 +111,7 @@ describe('Express Route Test', function () {
 
 	it('login successfully', async () => {
 		return request
-			.post('/login')
+			.post('/security/login')
 			.send({ username: 'Idzwan', password: "Password" })
 			.expect('Content-Type', /json/)
 			.expect(200).then(response => {
@@ -126,7 +126,7 @@ describe('Express Route Test', function () {
 
 	it('login failed', async () => {
 		return request
-			.post('/login')
+			.post('/security/login')
 			.send({ username: 'Idzwan', password: "Password-fail" })
 			.expect('Content-Type', /text/)
 			.expect(401)
@@ -137,7 +137,7 @@ describe('Express Route Test', function () {
 
 	it('register', async () => {
 		return request
-			.post('/register')
+			.post('/security/register')
 			.send({ username: 'Arif', password: "Password" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -147,7 +147,7 @@ describe('Express Route Test', function () {
 
 	it('register failed', async () => {
 		return request
-			.post('/register')
+			.post('/security/register')
 			.send({ username: 'Idzwan', password: "Password" })
 			.expect('Content-Type', /text/)
 			.expect(401).then(response => {
@@ -157,7 +157,7 @@ describe('Express Route Test', function () {
 
 	it('update', async () => {
 		return request
-			.patch('/update')
+			.patch('/security/update')
 			.send({ username: 'Idzwan', newusername: "Idzwan" })
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {
@@ -167,7 +167,7 @@ describe('Express Route Test', function () {
 
 	it('update failed', async () => {
 		return request
-			.patch('/update')
+			.patch('/security/update')
 			.send({ username: 'Idzwan-new', newusername: "Idzwan" })
 			.expect('Content-Type', /text/)
 			.expect(401).then(response => {
@@ -177,7 +177,7 @@ describe('Express Route Test', function () {
 
 	it('delete', async () => {
 		return request
-			.delete('/delete')
+			.delete('/security/delete')
 			.send({ username: 'Arif'})
 			.expect('Content-Type', /text/)
 			.expect(200).then(response => {

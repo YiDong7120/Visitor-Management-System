@@ -11,7 +11,11 @@ class User {
         reservations = await conn.db("Visitor-Management-System").collection("Reservations")
 	}
 
-////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//                                                        //
+//                          User                          //
+//                                                        //
+////////////////////////////////////////////////////////////
 
     // Register User
 	static async register(username, password) {
@@ -72,7 +76,11 @@ class User {
         return { status: "Deleted"};
     }
 
-/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//                                                        //
+//                        Visitor                         //
+//                                                        //
+////////////////////////////////////////////////////////////
 
     // Create Visitor
     static async addVisitor(randomId, randomName, randomAge, randomAddress, randomCity, randomEmail, randomPhone, randomIc, randomDate, randomBookingId) {
@@ -109,7 +117,11 @@ class User {
         return { status: "Deleted"};
     }
 
-//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//                                                        //
+//                      Reservation                       //
+//                                                        //
+////////////////////////////////////////////////////////////
 
     // Create Reservation
     static async addReservation(randomBookingId, randomVehicle, randomBookingDate, randomPlate, randomId) {
