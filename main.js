@@ -557,45 +557,13 @@ app.delete('/security/delete', async (req, res) => {
 //                                                        //
 ////////////////////////////////////////////////////////////
 
-// app.use(verifyToken);
-
-// app.get('/visitor/:id', async (req, res) => {
-// 	console.log(req.body);
-
-// 	let visitor = await User.getVisitor(req.params.visitor_id);
-// 	res.status(200).json(visitor)
-
-// })
-
-app.get('visitor/:visitor_id', async (req, res) => {
-	console.log(req.params.id);
+app.get('/visitor/:id', async (req, res) => {
 	console.log(req.body);
-	console.log(req.params);
-	console.log(req.params.visitor_id);
 
-	let visitor = await User.getVisitor(req.params.visitor_id);
+	let visitor = await Visitor.getVisitor(req.params.id);
+	res.status(200).json(visitor)
 
-	if (visitor)
-		res.status(200).json(visitor);
-	else
-		res.status(404).send("Invalid visitor id");
-	})
-	
-// app.get('/visitor/:id', async (req, res) => {
-// 	console.log(req.user);
-
-// 	if(req.user.role == 'user') {
-// 		let visitor = await Visitor.getVisitor(req.params.visitor_id);
-
-// 		if (visitor)
-// 			res.status(200).json(visitor)
-// 		else
-// 			res.status(404).send("Invalid Visitor Id");
-// 	} else {
-// 		res.status(403).send('Unauthorized')
-// 	}
-
-// })
+})
 
 /**
  * @swagger
@@ -604,24 +572,53 @@ app.get('visitor/:visitor_id', async (req, res) => {
  *     description: Get visitor information
  *     parameters:
  *       - in: path
- *         name: visitor_id
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
  *         description: Visitor ID
- */
+//  *     responses:
+//  *       200:
+//  *         description: Visitor Information
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               $ref: '#/components/schemas/Visitor'
+//  */
+
+// /**
+//  * @swagger
+//  * components:
+//  *   schemas:
+//  *     Visitor:
+//  *       type: object
+//  *       properties:
+//  *         _id: 
+//  *           type: string
+//  *         visitor_id: 
+//  *           type: string
+//  *         visitor_name:
+//  * 		     type: string
+//  *         visitor_age:
+//  *           type: string
+//  *         visitor_address:
+//  * 		     type: string
+//  *         visitor_city:
+//  *           type: string
+//  */
+
 
 app.get('/reservation/:id', async (req, res) => {
 	console.log(req.body);
 
-	let reservation = await User.getReservation(req.params.reservation_id);
+	let reservation = await Visitor.getReservation(req.params.id);
 	res.status(200).json(reservation)
 
 })
 
 /**
  * @swagger
- * /reservation,{id}:
+ * /reservation/{id}:
  *   get:
  *     description: Get reservation information
  *     parameters:
@@ -631,6 +628,30 @@ app.get('/reservation/:id', async (req, res) => {
  *           type: string
  *         required: true
  *         description: Reservation ID
+ */
+
+// app.use(verifyToken);
+
+ app.get('/user/:id', async (req, res) => {
+	console.log(req.body);
+
+	let user = await Security.getUser(req.params.id);
+	res.status(200).json(user)
+
+})
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   get:
+ *     description: Get user information
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ID
  */
 
 app.listen(port, () => {

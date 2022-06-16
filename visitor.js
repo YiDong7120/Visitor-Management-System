@@ -1,3 +1,4 @@
+const ObjectId = require("mongodb").ObjectId;
 let visitors;
 let reservations;
 
@@ -8,13 +9,13 @@ class Visitor {
 	}
 
     // Read Visitor
-    static async getVisitor(randomId) {
-        return await visitors.findOne({ visitor_id: randomId })
+    static async getVisitor(visitorId) {
+        return await visitors.findOne({ _id: new ObjectId(visitorId) })
     }
 
     // Read Reservation
-    static async getReservation(randomBookingId) {
-        return await reservations.findOne({ reserve_id: randomBookingId })
+    static async getReservation(reserveId) {
+        return await reservations.findOne({ _id: new ObjectId(reserveId) })
     }
 }
 module.exports = Visitor;

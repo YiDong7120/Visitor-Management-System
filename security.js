@@ -1,3 +1,4 @@
+const ObjectId = require("mongodb").ObjectId;
 const bcrypt = require("bcryptjs/dist/bcrypt");
 
 let security;
@@ -82,15 +83,13 @@ class Security {
 ////////////////////////////////////////////////////////////
     
     // Read User
-    static async getUser(username) {
-        const user = await users.findOne({ username: username })
+    static async getUser(userId) {
+        const user = await users.findOne({ _id: new ObjectId(userId) })
         if(!user) {
-            return { status: "Invalid username" }
+            return { status: "Invalid Id" }
         }
-        return user;
+        return await users.findOne({ _id: new ObjectId(userId) })
     }
-    
-
         
 ////////////////////////////////////////////////////////////
 //                                                        //

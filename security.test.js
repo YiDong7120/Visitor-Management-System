@@ -57,8 +57,8 @@ describe("Security Account", () => {
 		expect(res.status).toBe("Deleted")
 	})
 
-	test(("Read User"), async () => {
-		const res = await Security.getUser("Idzwan")
+	test("Read Visitor", async () => {
+		const res = await Security.getUser("62a5a93d6ad10471d24b013b");
 		expect(res).not.toBeUndefined()
 	})
 

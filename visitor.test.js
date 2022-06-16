@@ -1,6 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
 const Visitor = require("./visitor")
-const User = require("./user")
 
 describe("Visitor Account", () => {
 	let client;
@@ -17,12 +16,12 @@ describe("Visitor Account", () => {
 	})
 
 	test("Read Visitor", async () => {
-		const res = await Visitor.getVisitor(User.randomId)
+		const res = await Visitor.getVisitor("628b5c72eda3a236e649420e");
 		expect(res).not.toBeUndefined()
 	})
 
 	test("Read Reservation", async () => {
-		const res = await Visitor.getReservation(User.randomBookingId)
+		const res = await Visitor.getVisitor("6288c1ddf09cf4a2f1656f61");
 		expect(res).not.toBeUndefined()
 	})
 })

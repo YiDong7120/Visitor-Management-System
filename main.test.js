@@ -11,7 +11,7 @@ describe('Express Route Test', function () {
 			});
 	})
 
-	it('login successfully', async () => {
+	it('user login successfully', async () => {
 		return request
 			.post('/user/login')
 			.send({ username: 'Gan', password: "Password" })
@@ -26,7 +26,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('login failed', async () => {
+	it('user login failed', async () => {
 		return request
 			.post('/user/login')
 			.send({ username: 'Gan', password: "Password-fail" })
@@ -37,7 +37,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('register user', async () => {
+	it('user register successfully', async () => {
 		return request
 			.post('/user/register')
 			.send({ username: 'Arif', password: "Password" })
@@ -47,7 +47,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('register failed', async () => {
+	it('user register failed', async () => {
 		return request
 			.post('/user/register')
 			.send({ username: 'Gan', password: "Password" })
@@ -57,7 +57,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('update', async () => {
+	it('user update', async () => {
 		return request
 			.patch('/user/update')
 			.send({ username: 'Gan', newusername: "Gan" })
@@ -109,7 +109,7 @@ describe('Express Route Test', function () {
 
 /////////////////////////////////////////////
 
-	it('login successfully', async () => {
+	it('security login successfully', async () => {
 		return request
 			.post('/security/login')
 			.send({ username: 'Idzwan', password: "Password" })
@@ -124,7 +124,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('login failed', async () => {
+	it('security login failed', async () => {
 		return request
 			.post('/security/login')
 			.send({ username: 'Idzwan', password: "Password-fail" })
@@ -135,7 +135,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('register', async () => {
+	it('security register successfully', async () => {
 		return request
 			.post('/security/register')
 			.send({ username: 'Arif', password: "Password" })
@@ -145,7 +145,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('register failed', async () => {
+	it('security register failed', async () => {
 		return request
 			.post('/security/register')
 			.send({ username: 'Idzwan', password: "Password" })
@@ -155,7 +155,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('update', async () => {
+	it('security update', async () => {
 		return request
 			.patch('/security/update')
 			.send({ username: 'Idzwan', newusername: "Idzwan" })
@@ -165,7 +165,7 @@ describe('Express Route Test', function () {
 			});
 	});
 
-	it('update failed', async () => {
+	it('security update failed', async () => {
 		return request
 			.patch('/security/update')
 			.send({ username: 'Idzwan-new', newusername: "Idzwan" })
@@ -175,7 +175,7 @@ describe('Express Route Test', function () {
 			});
 	})
 
-	it('delete', async () => {
+	it('security delete', async () => {
 		return request
 			.delete('/security/delete')
 			.send({ username: 'Arif'})
@@ -187,31 +187,54 @@ describe('Express Route Test', function () {
 
 	it('find visitor', async () => {
 		return request
-			.get('/visitor/7ac1937b-73aa-45d9-b89f-7ae962e1302f')
+			.get('/visitor/6288c1ddf09cf4a2f1656f60')
 			.expect(200)
 			.expect('Content-Type', /json/)
 			.expect(200).then(response => {
-				expect(response.body).toEqual(
-					expect.objectContaining({
+				expect(response.body).toStrictEqual({
 						_id: expect.any(String),
-						username: expect.any(String),
+						visitor_id: expect.any(String),
+            			visitor_name: expect.any(String),
+						visitor_age: expect.any(Number),
+            			visitor_address: expect.any(String),
+            			visitor_city: expect.any(String),
+            			visitor_email: expect.any(String),
+            			visitor_phone: expect.any(String),
+            			visitor_ic: expect.any(String),
+            			visitor_date: expect.any(String),
+            			reserve_id: expect.any(String)
 					})
-				);
 			});
 	});
 
 	it('find reservation', async () => {
 		return request
-			.get('/reservation/0b8ded40-3495-4d02-8177-1265cc002f61')
+			.get('/reservation/6288c1ddf09cf4a2f1656f61')
 			.expect(200)
 			.expect('Content-Type', /json/)
 			.expect(200).then(response => {
-				expect(response.body).toEqual(
-					expect.objectContaining({
+				expect(response.body).toStrictEqual({
+						_id: expect.any(String),
+						reserve_id: expect.any(String),
+            			reserve_vehicle: expect.any(String),
+            			reserve_date: expect.any(String),
+            			reserve_plate: expect.any(String),
+            			visitor_id: expect.any(String)
+					})
+			});
+	});
+
+	it('find user', async () => {
+		return request
+			.get('/user/62a5a93d6ad10471d24b013b')
+			.expect(200)
+			.expect('Content-Type', /json/)
+			.expect(200).then(response => {
+				expect(response.body).toStrictEqual({
 						_id: expect.any(String),
 						username: expect.any(String),
+						password: expect.any(String),
 					})
-				);
 			});
 	});
 });
