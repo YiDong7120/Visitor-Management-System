@@ -62,16 +62,6 @@ describe("Security Account", () => {
 		expect(res).not.toBeUndefined()
 	})
 
-	test("Update username", async () => {
-		const res = await Security.updateUser("Gan", "Gan")
-		expect(res.status).toBe("Updated")
-	})
-
-	test(("Delete user"), async () => {
-		const res = await Security.deleteUser("Arif")
-		expect(res.status).toBe("Deleted")
-	})
-
 	test("Read Visitor", async () => {
 		const res = await Security.getVisitor(User.randomName)
 		expect(res).not.toBeUndefined()

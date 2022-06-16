@@ -90,24 +90,7 @@ class Security {
         return user;
     }
     
-    // Update User
-    static async updateUser(username, newusername) {
-        
-        // TODO: Check if username exists
-        const user = await users.findOne({ username: username })
-        if(!user) {
-            return { status: "Invalid username" }
-        }
-    
-            await users.updateOne({ username: username }, { $set: { username: newusername }})
-            return { status: "Updated" }
-        }
-    
-    // Delete User
-    static async deleteUser(username) {
-        await users.deleteOne({ username: username })
-        return { status: "Deleted"};
-    }
+
         
 ////////////////////////////////////////////////////////////
 //                                                        //

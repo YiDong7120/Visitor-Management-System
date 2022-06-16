@@ -26,7 +26,7 @@ const options = {
 	definition: {
 		openapi: '3.0.0',
 		info: {
-			title: 'Welcome to Hospital Visitor Management System',
+			title: 'Hospital Visitor Management System',
 			version: '1.0.0',
 		},
 	},
@@ -39,7 +39,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-	res.send('Welcome to Gan Hospital Visitor Management System')
+	res.send('Welcome to G4 Hospital Visitor Management System')
 })
 
 app.get('/hello', (req, res) => {
@@ -164,7 +164,7 @@ app.post('/user/register', async (req, res) => {
 app.patch('/user/update', async (req, res) => {
 	console.log(req.body);
 	
-	let user = await Security.updateUser(req.body.username, req.body.newusername);
+	let user = await User.updateUser(req.body.username, req.body.newusername);
 	if (user.status == 'Invalid username') {
 		res.status(401).send("Invalid username");
 		return
@@ -216,7 +216,7 @@ app.patch('/user/update', async (req, res) => {
 app.delete('/user/delete', async (req, res) => {
 	console.log(req.body);
 
-	await Security.deleteUser(req.body.username);
+	await User.deleteUser(req.body.username);
 	return res.status(200).send("Delete success!");
 })
 
@@ -259,19 +259,94 @@ app.delete('/user/delete', async (req, res) => {
 app.delete('/user/deleteVisitor', async (req, res) => {
 	console.log(req.body);
 
-	await User.deleteVisitor(req.params.visitor_id);
+	await User.deleteVisitor(req.body.visitor_id);
 	res.status(200).send("Delete success!");
 
 })
+
+/**
+ * @swagger
+ * /user/deleteVisitor:
+ *   delete:
+ *     description: Visitor Delete
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Delete success!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Visitor'
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Visitor:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         visitor_name: 
+ *           type: string
+ */
 
 app.delete('/user/deleteReservation', async (req, res) => {
 	console.log(req.body);
 
-	await User.deleteReservation(req.params.reservation_id);
+	await User.deleteReservation(req.body.reservation_id);
 	res.status(200).send("Delete success!");
 
 })
-/////////////////////////////////////////////////
+
+/**
+ * @swagger
+ * /user/deleteReservation:
+ *   delete:
+ *     description: Reservation Delete
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema: 
+ *             type: object
+ *             properties:
+ *               username: 
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Delete success!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reservation'
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Reservation:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ */
+
+////////////////////////////////////////////////////////////
+//                                                        //
+//                       Security                         //
+//                                                        //
+////////////////////////////////////////////////////////////
 
 app.post('/security/login', async (req, res) => {
 	console.log(req.body);
@@ -476,11 +551,14 @@ app.delete('/security/delete', async (req, res) => {
  *           type: string
  */
 
-//////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//                                                        //
+//                   View Information                     //
+//                                                        //
+////////////////////////////////////////////////////////////
 
 // app.use(verifyToken);
 
-// //Open to all
 // app.get('/visitor/:id', async (req, res) => {
 // 	console.log(req.body);
 
@@ -489,7 +567,7 @@ app.delete('/security/delete', async (req, res) => {
 
 // })
 
-app.get('visitor/:id', async (req, res) => {
+app.get('visitor/:visitor_id', async (req, res) => {
 	console.log(req.params.id);
 	console.log(req.body);
 	console.log(req.params);
@@ -503,6 +581,22 @@ app.get('visitor/:id', async (req, res) => {
 		res.status(404).send("Invalid visitor id");
 	})
 	
+// app.get('/visitor/:id', async (req, res) => {
+// 	console.log(req.user);
+
+// 	if(req.user.role == 'user') {
+// 		let visitor = await Visitor.getVisitor(req.params.visitor_id);
+
+// 		if (visitor)
+// 			res.status(200).json(visitor)
+// 		else
+// 			res.status(404).send("Invalid Visitor Id");
+// 	} else {
+// 		res.status(403).send('Unauthorized')
+// 	}
+
+// })
+
 /**
  * @swagger
  * /visitor/{id}:

@@ -61,6 +61,16 @@ describe("User Account", () => {
 		);
     })
 
+	test("Update username", async () => {
+		const res = await User.updateUser("Gan", "Gan")
+		expect(res.status).toBe("Updated")
+	})
+
+	test(("Delete user"), async () => {
+		const res = await User.deleteUser("Arif")
+		expect(res.status).toBe("Deleted")
+	})
+
 	test("Create Visitor", async () => {
 		const res = await User.addVisitor(randomId, randomName, randomAge, randomAddress, randomCity, randomEmail, randomPhone, randomIc, randomDate, randomBookingId)
 		expect(res).not.toBeUndefined()
