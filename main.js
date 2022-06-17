@@ -745,9 +745,9 @@ app.get('/reservation/:id', async (req, res) => {
  *   description: APIs for Admin to handle resources.
  */
 
-// app.use(verifyToken);
+app.use(verifyToken);
 
-app.get('/user/:id',verifyToken, async (req, res) => {
+app.get('/user/:id', async (req, res) => {
 	console.log(req.params);
 	console.log(req.user);
 
