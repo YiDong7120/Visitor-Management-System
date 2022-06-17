@@ -748,7 +748,6 @@ app.get('/reservation/:id', async (req, res) => {
 app.use(verifyToken);
 
 app.get('/user/:id', async (req, res) => {
-	console.log(req.params);
 	console.log(req.user);
 
 	if(req.user.role == 'Admin') {
@@ -776,12 +775,12 @@ app.get('/user/:id', async (req, res) => {
  *     summary: View user information
  *     tags: [Admin]
  *     parameters:
- *     - in: path
- *       name: ObjectId
- *       schema:
- *         type: string
- *       required: true
- *       description: User ObjectId ID
+ *       - in: path
+ *         name: Id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User ObjectId ID
  *     responses:
  *       200:
  *         description: Authorized
@@ -800,9 +799,9 @@ app.get('/user/:id', async (req, res) => {
  *     User:
  *       type: object
  *       properties:
- *         _id: 
+ *         _id:
  *           type: string
- *         username: 
+ *         username:
  *           type: string
  */
 
