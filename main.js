@@ -776,7 +776,7 @@ app.get('/user/:id', async (req, res) => {
  *     tags: [Admin]
  *     parameters:
  *       - in: path
- *         name: Id
+ *         name: ObjectId
  *         schema:
  *           type: string
  *         required: true

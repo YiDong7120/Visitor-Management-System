@@ -107,8 +107,6 @@ describe('Express Route Test', function () {
 			});
 	});
 
-/////////////////////////////////////////////
-
 	it('security login successfully', async () => {
 		return request
 			.post('/security/login')
