@@ -71,6 +71,13 @@ app.get('/hello', (req, res) => {
 //                                                        //
 ////////////////////////////////////////////////////////////
 
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: APIs for user to handle resources.
+ */
+
 app.post('/user/login', async (req, res) => {
 	console.log(req.body);
 
@@ -91,7 +98,9 @@ app.post('/user/login', async (req, res) => {
  * @swagger
  * /user/login:
  *   post:
+ *     summary: Login existing user
  *     description: User Login
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -144,7 +153,9 @@ app.post('/user/register', async (req, res) => {
  * @swagger
  * /user/register:
  *   post:
+ *     summary: Register new user
  *     description: User Register
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -196,7 +207,9 @@ app.patch('/user/update', async (req, res) => {
  * @swagger
  * /user/update:
  *   patch:
+ *     summary: Update user's username
  *     description: User Update
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -243,7 +256,9 @@ app.delete('/user/delete', async (req, res) => {
  * @swagger
  * /user/delete:
  *   delete:
+ *     summary: Delete user
  *     description: User Delete
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -287,7 +302,9 @@ app.delete('/user/deleteVisitor', async (req, res) => {
  * @swagger
  * /user/deleteVisitor:
  *   delete:
+ *     summary: Delete visitor
  *     description: Visitor Delete
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -331,7 +348,9 @@ app.delete('/user/deleteReservation', async (req, res) => {
  * @swagger
  * /user/deleteReservation:
  *   delete:
+ *     summary: Delete reservation
  *     description: Reservation Delete
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -367,6 +386,13 @@ app.delete('/user/deleteReservation', async (req, res) => {
 //                                                        //
 ////////////////////////////////////////////////////////////
 
+/**
+ * @swagger
+ * tags:
+ *   name: Security
+ *   description: APIs for security to handle resources.
+ */
+
 app.post('/security/login', async (req, res) => {
 	console.log(req.body);
 
@@ -387,7 +413,9 @@ app.post('/security/login', async (req, res) => {
  * @swagger
  * /security/login:
  *   post:
+ *     summary: Login existing security
  *     description: Security Login
+ *     tags: [Security]
  *     requestBody:
  *       required: true
  *       content:
@@ -440,7 +468,9 @@ app.post('/security/register', async (req, res) => {
  * @swagger
  * /security/register:
  *   post:
+ *     summary: Register new security
  *     description: Security Register
+ *     tags: [Security]
  *     requestBody:
  *       required: true
  *       content:
@@ -492,7 +522,9 @@ app.patch('/security/update', async (req, res) => {
  * @swagger
  * /security/update:
  *   patch:
+ *     summary: Update security's username
  *     description: Security Update
+ *     tags: [Security]
  *     requestBody:
  *       required: true
  *       content:
@@ -539,7 +571,9 @@ app.delete('/security/delete', async (req, res) => {
  * @swagger
  * /security/delete:
  *   delete:
+ *     summary: Delete security
  *     description: Security Delete
+ *     tags: [Security]
  *     requestBody:
  *       required: true
  *       content:
@@ -577,6 +611,13 @@ app.delete('/security/delete', async (req, res) => {
 //                                                        //
 ////////////////////////////////////////////////////////////
 
+/**
+ * @swagger
+ * tags:
+ *   name: Everyone
+ *   description: APIs for Everyone to handle resources.
+ */
+
 app.get('/visitor/:id', async (req, res) => {
 	console.log(req.body);
 
@@ -589,14 +630,16 @@ app.get('/visitor/:id', async (req, res) => {
  * @swagger
  * /visitor/{id}:
  *   get:
+ *     summary: View visitor information
  *     description: Get visitor information
+ *     tags: [Everyone]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: ObjectId
  *         schema:
  *           type: string
  *         required: true
- *         description: Visitor ID
+ *         description: Visitor Session ID
  *     responses:
  *       200:
  *         description: Visitor Information
@@ -650,14 +693,16 @@ app.get('/reservation/:id', async (req, res) => {
  * @swagger
  * /reservation/{id}:
  *   get:
+ *     summary: View reservation information
  *     description: Get reservation information
+ *     tags: [Everyone]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: ObjectId
  *         schema:
  *           type: string
  *         required: true
- *         description: Reservation ID
+ *         description: Reservation Session ID
  *     responses:
  *       200:
  *         description: Reservation Information
@@ -694,6 +739,13 @@ app.get('/reservation/:id', async (req, res) => {
 //                                                        //
 ////////////////////////////////////////////////////////////
 
+/**
+ * @swagger
+ * tags:
+ *   name: Admin
+ *   description: APIs for Admin to handle resources.
+ */
+
 app.use(verifyToken);
 
  app.get('/user/:id', async (req, res) => {
@@ -718,24 +770,17 @@ app.use(verifyToken);
 
 /**
  * @swagger
- * tags:
- *   name: admin only
- *   description: APIs for security to handle user resources.
- */
-
-/**
- * @swagger
  * /user/{id}:
  *   get:
- *     summary: Retrieves a user
- *     tags: [admin only]
+ *     summary: View user information
+ *     tags: [Admin]
  *     parameters:
  *     - in: path
- *       name: id
+ *       name: ObjectId
  *       schema:
  *         type: string
  *       required: true
- *       description: User ID
+ *       description: User ObjectId ID
  *     security:
  *       - earerAuth: []
  *     responses:
