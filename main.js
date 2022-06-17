@@ -24,31 +24,28 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const options = {
 	definition: {
-		openapi: '3.0.3',
+		openapi: '3.0.0',
 		info: {
 			title: 'Hospital Visitor Management System',
 			version: '1.0.0',
 			description: 'For academic purposes only! - BENR 2423 Database and Cloud System'
 		},
+    	basePath: '/',
+		components: {
+			securitySchemes: {
+		  		bearerAuth: {
+				type: "http",
+				scheme: "bearer",
+				in: "header",
+				bearerFormat: "JWT"
+		  		}
+			}
+	  	},
+	  	// security: [{
+		// 	bearerAuth: []
+	  	// }],
 	},
-	host: 'localhost:3000',
-    basePath: '/',
 	apis: ['./main.js'],
-	components: {
-		securitySchemes: {
-		  BearerAuth: {
-			type: "http",
-			scheme: "bearer",
-			in: "header",
-			bearerFormat: "JWT"
-		  },
-		}
-	  }
-	  ,
-	  security: [{
-		BearerAuth: []
-	  }],
-	swagger: "2.0",
 };
 
 const swaggerSpec = swaggerJsdoc(options);
@@ -90,7 +87,8 @@ app.post('/user/login', async (req, res) => {
 	res.status(200).json({
 		_id: user._id,
 		username: user.username,
-		token:generateAccessToken({ _id: user._id, username: user.username })
+		role: user.role,
+		token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
 	})
 })
 
@@ -405,7 +403,8 @@ app.post('/security/login', async (req, res) => {
 	res.status(200).json({
 		_id: user._id,
 		username: user.username,
-		token:generateAccessToken({ _id: user._id, username: user.username })
+		role: user.role,
+		token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
 	})
 })
 
@@ -746,13 +745,13 @@ app.get('/reservation/:id', async (req, res) => {
  *   description: APIs for Admin to handle resources.
  */
 
-app.use(verifyToken);
+// app.use(verifyToken);
 
- app.get('/user/:id', async (req, res) => {
-	console.log(req.body);
-	console.log(req.security);
+app.get('/user/:id',verifyToken, async (req, res) => {
+	console.log(req.params);
+	console.log(req.user);
 
-	if(req.security.role == 'Admin') {
+	if(req.user.role == 'Admin') {
 
 		let user = await Security.getUser(req.params.id);
 
@@ -772,6 +771,8 @@ app.use(verifyToken);
  * @swagger
  * /user/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: View user information
  *     tags: [Admin]
  *     parameters:
@@ -781,8 +782,6 @@ app.use(verifyToken);
  *         type: string
  *       required: true
  *       description: User ObjectId ID
- *     security:
- *       - earerAuth: []
  *     responses:
  *       200:
  *         description: Authorized
