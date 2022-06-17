@@ -77,19 +77,25 @@ app.get('/hello', (req, res) => {
 
 app.post('/user/login', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let user = await User.login(req.body.username, req.body.password);
-	if (user.status == 'Invalid username' || user.status == 'Invalid password') {
-		res.status(401).send("Invalid username or password");
-		return
+		let user = await User.login(req.body.username, req.body.password);
+		if (user.status == 'Invalid username' || user.status == 'Invalid password') {
+			res.status(401).send("Invalid username or password");
+			return
+		}
+
+		res.status(200).json({
+			_id: user._id,
+			username: user.username,
+			role: user.role,
+			token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
+		})
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
 	}
-
-	res.status(200).json({
-		_id: user._id,
-		username: user.username,
-		role: user.role,
-		token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
-	})
 })
 
 /**
@@ -136,15 +142,20 @@ app.post('/user/login', async (req, res) => {
 
 app.post('/user/register', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let user = await User.register(req.body.username, req.body.password);
-	if (user.status == 'Duplicate username') {
-		res.status(401).send("User already exits!");
-		return
+		let user = await User.register(req.body.username, req.body.password);
+		if (user.status == 'Duplicate username') {
+			res.status(401).send("User already exits!");
+			return
+		}
+
+		res.status(200).send("Register success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
 	}
-
-	res.status(200).send("Register success!");
-
 })
 
 /**
@@ -191,14 +202,20 @@ app.post('/user/register', async (req, res) => {
 
 app.patch('/user/update', async (req, res) => {
 	console.log(req.body);
-	
-	let user = await User.updateUser(req.body.username, req.body.newusername);
-	if (user.status == 'Invalid username') {
-		res.status(401).send("Invalid username");
-		return
-	}
+	try {
 
-	res.status(200).send("Update success!");
+		let user = await User.updateUser(req.body.username, req.body.newusername);
+		if (user.status == 'Invalid username') {
+			res.status(401).send("Invalid username");
+			return
+		}
+
+		res.status(200).send("Update success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -245,9 +262,15 @@ app.patch('/user/update', async (req, res) => {
 
 app.delete('/user/delete', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	await User.deleteUser(req.body.username);
-	return res.status(200).send("Delete success!");
+		await User.deleteUser(req.body.username);
+		return res.status(200).send("Delete success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -290,10 +313,15 @@ app.delete('/user/delete', async (req, res) => {
 
 app.delete('/user/deleteVisitor', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	await User.deleteVisitor(req.body.visitor_id);
-	res.status(200).send("Delete success!");
+		await User.deleteVisitor(req.body.visitor_id);
+		res.status(200).send("Delete success!");
 
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -336,10 +364,15 @@ app.delete('/user/deleteVisitor', async (req, res) => {
 
 app.delete('/user/deleteReservation', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	await User.deleteReservation(req.body.reservation_id);
-	res.status(200).send("Delete success!");
+		await User.deleteReservation(req.body.reservation_id);
+		res.status(200).send("Delete success!");
 
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -393,19 +426,25 @@ app.delete('/user/deleteReservation', async (req, res) => {
 
 app.post('/security/login', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let user = await Security.login(req.body.username, req.body.password);
-	if (user.status == 'Invalid username' || user.status == 'Invalid password') {
-		res.status(401).send("Invalid username or password");
-		return
+		let user = await Security.login(req.body.username, req.body.password);
+		if (user.status == 'Invalid username' || user.status == 'Invalid password') {
+			res.status(401).send("Invalid username or password");
+			return
+		}
+
+		res.status(200).json({
+			_id: user._id,
+			username: user.username,
+			role: user.role,
+			token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
+		})
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
 	}
-
-	res.status(200).json({
-		_id: user._id,
-		username: user.username,
-		role: user.role,
-		token:generateAccessToken({ _id: user._id, username: user.username, role: user.role })
-	})
 })
 
 /**
@@ -452,15 +491,20 @@ app.post('/security/login', async (req, res) => {
 
 app.post('/security/register', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let user = await Security.register(req.body.username, req.body.password);
-	if (user.status == 'Duplicate username') {
-		res.status(401).send("User already exits!");
-		return
+		let user = await Security.register(req.body.username, req.body.password);
+		if (user.status == 'Duplicate username') {
+			res.status(401).send("User already exits!");
+			return
+		}
+
+		res.status(200).send("Register success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
 	}
-
-	res.status(200).send("Register success!");
-
 })
 
 /**
@@ -507,14 +551,19 @@ app.post('/security/register', async (req, res) => {
 
 app.patch('/security/update', async (req, res) => {
 	console.log(req.body);
-	
-	let user = await Security.update(req.body.username, req.body.newusername);
-	if (user.status == 'Invalid username') {
-		res.status(401).send("Invalid username");
-		return
-	}
+	try {
+		let user = await Security.update(req.body.username, req.body.newusername);
+		if (user.status == 'Invalid username') {
+			res.status(401).send("Invalid username");
+			return
+		}
 
-	res.status(200).send("Update success!");
+		res.status(200).send("Update success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -561,9 +610,15 @@ app.patch('/security/update', async (req, res) => {
 
 app.delete('/security/delete', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	await Security.delete(req.body.username);
-	return res.status(200).send("Delete success!");
+		await Security.delete(req.body.username);
+		return res.status(200).send("Delete success!");
+
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -619,10 +674,15 @@ app.delete('/security/delete', async (req, res) => {
 
 app.get('/visitor/:id', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let visitor = await Visitor.getVisitor(req.params.id);
-	res.status(200).json(visitor)
+		let visitor = await Visitor.getVisitor(req.params.id);
+		res.status(200).json(visitor)
 
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -682,10 +742,15 @@ app.get('/visitor/:id', async (req, res) => {
 
 app.get('/reservation/:id', async (req, res) => {
 	console.log(req.body);
+	try {
 
-	let reservation = await Visitor.getReservation(req.params.id);
-	res.status(200).json(reservation)
-
+		let reservation = await Visitor.getReservation(req.params.id);
+		res.status(200).json(reservation)
+	
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
+	}
 })
 
 /**
@@ -749,20 +814,24 @@ app.use(verifyToken);
 
 app.get('/user/:id', async (req, res) => {
 	console.log(req.user);
+	try {
+		if(req.user.role == 'Admin') {
 
-	if(req.user.role == 'Admin') {
+			let user = await Security.getUser(req.params.id);
 
-		let user = await Security.getUser(req.params.id);
+			if (user)
+				res.status(200).json(user)
+			else
+				res.status(404).send("Invalid User Id");
 
-		if (user)
-			res.status(200).json(user)
-		else
-			res.status(404).send("Invalid User Id");
+		} else {
 
-	} else {
+			res.status(403).send('Unauthorized')
 
-		res.status(403).send('Unauthorized')
-
+		}
+	} catch (e) {
+		console.error(`Internal server error, ${e}`)
+		res.status(500).json(e)
 	}
 })
 

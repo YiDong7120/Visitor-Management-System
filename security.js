@@ -135,15 +135,7 @@ class Security {
 
     // Read Visitor
     static async getVisitor(randomName) {
-        try {
-
-            return await visitors.findOne({ visitor_name: randomName })
-
-        } catch (e) {
-            console.error(`Error occurred while getting visitor, ${e}.`)
-            return { error: e }
-        }
+        return await visitors.findOne({ visitor_name: randomName })
     }
 }
-
 module.exports = Security;

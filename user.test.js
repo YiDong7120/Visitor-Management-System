@@ -33,22 +33,26 @@ describe("User Account", () => {
 
 	test("New user registration", async () => {
 		const res = await User.register("Arif", "Password")
-		expect(res).not.toBeUndefined();
+		expect(res).not.toBeUndefined()
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Duplicate username", async () => {
 		const res = await User.register("Gan", "Password")
 		expect(res.status).toBe("Duplicate username")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("User login invalid username", async () => {
 		const res = await User.login("Idz", "Drowssad")
 		expect(res.status).toBe("Invalid username")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("User login invalid password", async () => {
 		const res = await User.login("Gan", "Password-fail")
 		expect(res.status).toBe("Invalid password")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("User login successfully", async () => {
@@ -59,26 +63,31 @@ describe("User Account", () => {
                 password: expect.any(String),
             })
 		);
+		expect(res.error).toBeUndefined()
     })
 
 	test("Update username", async () => {
 		const res = await User.updateUser("Gan", "Gan")
 		expect(res.status).toBe("Updated")
+		expect(res.error).toBeUndefined()
 	})
 
 	test(("Delete user"), async () => {
 		const res = await User.deleteUser("Arif")
 		expect(res.status).toBe("Deleted")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Create Visitor", async () => {
 		const res = await User.addVisitor(randomId, randomName, randomAge, randomAddress, randomCity, randomEmail, randomPhone, randomIc, randomDate, randomBookingId)
 		expect(res).not.toBeUndefined()
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Duplicate visitor id", async () => {
 		const res = await User.addVisitor(randomId, randomName, randomAge, randomAddress, randomCity, randomEmail, randomPhone, randomIc, randomDate, randomBookingId)
 		expect(res.status).toBe("Duplicate visitor id")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Read Visitor", async () => {
@@ -89,25 +98,30 @@ describe("User Account", () => {
 	test("Delete Visitor", async () => {
 		const res = await User.deleteVisitor(randomId)
 		expect(res.status).toBe("Deleted")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Create Reservation", async () => {
 		const res = await User.addReservation(randomBookingId, randomVehicle, randomBookingDate, randomPlate, randomId)
 		expect(res).not.toBeUndefined()
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Duplicate reservation id", async () => {
 		const res = await User.addReservation(randomBookingId, randomVehicle, randomBookingDate, randomPlate, randomId)
 		expect(res.status).toBe("Duplicate reservation id")
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Read Reservation", async () => {
 		const res = await User.getReservation(randomBookingId)
 		expect(res).not.toBeUndefined()
+		expect(res.error).toBeUndefined()
 	})
 
 	test("Delete Reservation", async () => {
 		const res = await User.deleteReservation(randomBookingId)
 		expect(res.status).toBe("Deleted")
+		expect(res.error).toBeUndefined()
 	})
 });

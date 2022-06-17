@@ -14,26 +14,12 @@ class Visitor {
 
     // Read Visitor
     static async getVisitor(visitorId) {
-        try {
-
-            return await visitors.findOne({ _id: new ObjectId(visitorId) })
-        
-        } catch (e) {
-            console.error(`Error occurred while getting visitor, ${e}.`)
-            return { error: e }
-        }
+        return await visitors.findOne({ _id: new ObjectId(visitorId) })
     }
 
     // Read Reservation
     static async getReservation(reserveId) {
-        try {
-
-            return await reservations.findOne({ _id: new ObjectId(reserveId) })
-        
-        } catch (e) {
-            console.error(`Error occurred while getting reservation, ${e}.`)
-            return { error: e }
-        }
+        return await reservations.findOne({ _id: new ObjectId(reserveId) })
     }
 }
 module.exports = Visitor;

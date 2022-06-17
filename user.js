@@ -142,14 +142,7 @@ class User {
 
     // Read Visitor
     static async getVisitor(randomId) {
-        try{
-
-            return await visitors.findOne({ visitor_id: randomId })
-
-        } catch (e) {
-            console.error(`Error occurred while getting visitor, ${e}`)
-            return { error: e }
-        }
+        return await visitors.findOne({ visitor_id: randomId })
     }
 
     // Delete Visitor
