@@ -24,14 +24,33 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const options = {
 	definition: {
-		openapi: '3.0.0',
+		openapi: '3.0.3',
 		info: {
 			title: 'Hospital Visitor Management System',
 			version: '1.0.0',
+			description: 'For academic purposes only! - BENR 2423 Database and Cloud System'
 		},
 	},
+	host: 'localhost:3000',
+    basePath: '/',
 	apis: ['./main.js'],
+	components: {
+		securitySchemes: {
+		  BearerAuth: {
+			type: "http",
+			scheme: "bearer",
+			in: "header",
+			bearerFormat: "JWT"
+		  },
+		}
+	  }
+	  ,
+	  security: [{
+		BearerAuth: []
+	  }],
+	swagger: "2.0",
 };
+
 const swaggerSpec = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -578,35 +597,45 @@ app.get('/visitor/:id', async (req, res) => {
  *           type: string
  *         required: true
  *         description: Visitor ID
-//  *     responses:
-//  *       200:
-//  *         description: Visitor Information
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               $ref: '#/components/schemas/Visitor'
+ *     responses:
+ *       200:
+ *         description: Visitor Information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Visitor'
  */
 
-// /**
-//  * @swagger
-//  * components:
-//  *   schemas:
-//  *     Visitor:
-//  *       type: object
-//  *       properties:
-//  *         _id: 
-//  *           type: string
-//  *         visitor_id: 
-//  *           type: string
-//  *         visitor_name:
-//  * 		     type: string
-//  *         visitor_age:
-//  *           type: string
-//  *         visitor_address:
-//  * 		     type: string
-//  *         visitor_city:
-//  *           type: string
-//  */
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Visitor:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         visitor_id: 
+ *           type: string
+ *         visitor_name:
+ *           type: string
+ *         visitor_age:
+ *           type: string
+ *         visitor_address:
+ *           type: string
+ *         visitor_city:
+ *           type: string
+ *         visitor_email:
+ *           type: string
+ *         visitor_phone:
+ *           type: string
+ *         visitor_ic:
+ *           type: string
+ *         visitor_date:
+ *           type: string
+ *         reserve_id:
+ *           type: string
+ */
 
 
 app.get('/reservation/:id', async (req, res) => {
@@ -629,6 +658,34 @@ app.get('/reservation/:id', async (req, res) => {
  *           type: string
  *         required: true
  *         description: Reservation ID
+ *     responses:
+ *       200:
+ *         description: Reservation Information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reservation'
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Reservation:
+ *       type: object
+ *       properties:
+ *         _id: 
+ *           type: string
+ *         reserve_id: 
+ *           type: string
+ *         reserve_vehicle: 
+ *           type: string
+ *         reserve_date: 
+ *           type: string
+ *         reserve_plate: 
+ *           type: string
+ *         visitor_id: 
+ *           type: string
  */
 
 ////////////////////////////////////////////////////////////
@@ -641,24 +698,68 @@ app.use(verifyToken);
 
  app.get('/user/:id', async (req, res) => {
 	console.log(req.body);
+	console.log(req.security);
 
-	let user = await Security.getUser(req.params.id);
-	res.status(200).json(user)
+	if(req.security.role == 'Admin') {
 
+		let user = await Security.getUser(req.params.id);
+
+		if (user)
+			res.status(200).json(user)
+		else
+			res.status(404).send("Invalid User Id");
+
+	} else {
+
+		res.status(403).send('Unauthorized')
+
+	}
 })
+
+/**
+ * @swagger
+ * tags:
+ *   name: admin only
+ *   description: APIs for security to handle user resources.
+ */
 
 /**
  * @swagger
  * /user/{id}:
  *   get:
- *     description: Get user information
+ *     summary: Retrieves a user
+ *     tags: [admin only]
  *     parameters:
- *       - in: path
- *         name: id
- *         schema:
+ *     - in: path
+ *       name: id
+ *       schema:
+ *         type: string
+ *       required: true
+ *       description: User ID
+ *     security:
+ *       - earerAuth: []
+ *     responses:
+ *       200:
+ *         description: Authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       401:
+ *         description: Unauthorized
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         _id: 
  *           type: string
- *         required: true
- *         description: User ID
+ *         username: 
+ *           type: string
  */
 
 app.listen(port, () => {
