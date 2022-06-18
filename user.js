@@ -140,11 +140,6 @@ class User {
         }
     }
 
-    // Read Visitor
-    static async getVisitor(randomId) {
-        return await visitors.findOne({ visitor_id: randomId })
-    }
-
     // Delete Visitor
     static async deleteVisitor(randomId) {
         try {
@@ -183,18 +178,6 @@ class User {
 
         } catch (e) {
             console.error(`Error occurred while adding reservation, ${e}`)
-            return { error: e }
-        }
-    }
-
-    // Read Reservation
-    static async getReservation(randomBookingId) {
-        try{
-
-            return await reservations.findOne({ reserve_id: randomBookingId })
-
-        } catch (e) {
-            console.error(`Error occurred while getting reservation, ${e}`)
             return { error: e }
         }
     }

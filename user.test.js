@@ -90,11 +90,6 @@ describe("User Account", () => {
 		expect(res.error).toBeUndefined()
 	})
 
-	test("Read Visitor", async () => {
-		const res = await User.getVisitor(randomName)
-		expect(res).not.toBeUndefined()
-	})
-
 	test("Delete Visitor", async () => {
 		const res = await User.deleteVisitor(randomId)
 		expect(res.status).toBe("Deleted")
@@ -110,12 +105,6 @@ describe("User Account", () => {
 	test("Duplicate reservation id", async () => {
 		const res = await User.addReservation(randomBookingId, randomVehicle, randomBookingDate, randomPlate, randomId)
 		expect(res.status).toBe("Duplicate reservation id")
-		expect(res.error).toBeUndefined()
-	})
-
-	test("Read Reservation", async () => {
-		const res = await User.getReservation(randomBookingId)
-		expect(res).not.toBeUndefined()
 		expect(res.error).toBeUndefined()
 	})
 

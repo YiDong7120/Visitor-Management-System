@@ -230,6 +230,7 @@ describe('Express Route Test', function () {
 			.expect(200).then(response => {
 				expect(response.body).toStrictEqual({
 						_id: expect.any(String),
+						role: expect.any(String),
 						username: expect.any(String),
 						password: expect.any(String),
 					})

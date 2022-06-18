@@ -30,7 +30,6 @@ const options = {
 			version: '1.0.0',
 			description: 'For academic purposes only! - BENR 2423 Database and Cloud System'
 		},
-    	basePath: '/',
 		components: {
 			securitySchemes: {
 		  		bearerAuth: {
@@ -125,6 +124,8 @@ app.post('/user/login', async (req, res) => {
  *               $ref: '#/components/schemas/User'
  *       401:
  *         description: Invalid username or password
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -185,6 +186,8 @@ app.post('/user/register', async (req, res) => {
  *               $ref: '#/components/schemas/User'
  *       401:
  *         description: User already exits!
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -245,6 +248,8 @@ app.patch('/user/update', async (req, res) => {
  *               $ref: '#/components/schemas/User'
  *       401:
  *         description: Invalid username
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -296,6 +301,8 @@ app.delete('/user/delete', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -347,6 +354,8 @@ app.delete('/user/deleteVisitor', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Visitor'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -398,6 +407,8 @@ app.delete('/user/deleteReservation', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Reservation'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -474,6 +485,8 @@ app.post('/security/login', async (req, res) => {
  *               $ref: '#/components/schemas/Security'
  *       401:
  *         description: Invalid username or password
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -534,6 +547,8 @@ app.post('/security/register', async (req, res) => {
  *               $ref: '#/components/schemas/Security'
  *       401:
  *         description: User already exits!
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -593,6 +608,8 @@ app.patch('/security/update', async (req, res) => {
  *               $ref: '#/components/schemas/Security'
  *       401:
  *         description: Invalid username
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -644,6 +661,8 @@ app.delete('/security/delete', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Security'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -694,11 +713,11 @@ app.get('/visitor/:id', async (req, res) => {
  *     tags: [Everyone]
  *     parameters:
  *       - in: path
- *         name: ObjectId
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Visitor Session ID
+ *         description: Visitor Object/Session ID
  *     responses:
  *       200:
  *         description: Visitor Information
@@ -706,6 +725,8 @@ app.get('/visitor/:id', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Visitor'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -762,11 +783,11 @@ app.get('/reservation/:id', async (req, res) => {
  *     tags: [Everyone]
  *     parameters:
  *       - in: path
- *         name: ObjectId
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Reservation Session ID
+ *         description: Reservation Object/Session ID
  *     responses:
  *       200:
  *         description: Reservation Information
@@ -774,6 +795,8 @@ app.get('/reservation/:id', async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Reservation'
+ *       500:
+ *         description: Internal server error
  */
 
 /**
@@ -815,6 +838,7 @@ app.use(verifyToken);
 app.get('/user/:id', async (req, res) => {
 	console.log(req.user);
 	try {
+
 		if(req.user.role == 'Admin') {
 
 			let user = await Security.getUser(req.params.id);
@@ -845,20 +869,24 @@ app.get('/user/:id', async (req, res) => {
  *     tags: [Admin]
  *     parameters:
  *       - in: path
- *         name: ObjectId
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: User ObjectId ID
+ *         description: User Object/Session ID
  *     responses:
  *       200:
- *         description: Authorized
+ *         description: User Information
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
- *       401:
+ *       403:
  *         description: Unauthorized
+ *       404:
+ *         description: Invalid User Id
+ *       500:
+ *         description: Internal server error
  */
 
 /**

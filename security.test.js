@@ -64,13 +64,8 @@ describe("Security Account", () => {
 		expect(res.error).toBeUndefined()
 	})
 
-	test("Read Visitor", async () => {
+	test("Read User", async () => {
 		const res = await Security.getUser("62a5a93d6ad10471d24b013b");
-		expect(res).not.toBeUndefined()
-	})
-
-	test("Read Visitor", async () => {
-		const res = await Security.getVisitor(User.randomName)
 		expect(res).not.toBeUndefined()
 	})
 

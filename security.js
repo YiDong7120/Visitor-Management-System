@@ -126,16 +126,6 @@ class Security {
             return { error: e }
         }
     }
-        
-////////////////////////////////////////////////////////////
-//                                                        //
-//                        Visitor                         //
-//                                                        //
-////////////////////////////////////////////////////////////
-
-    // Read Visitor
-    static async getVisitor(randomName) {
-        return await visitors.findOne({ visitor_name: randomName })
-    }
 }
+        
 module.exports = Security;
