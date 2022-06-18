@@ -345,7 +345,7 @@ app.delete('/user/deleteVisitor', async (req, res) => {
  *           schema: 
  *             type: object
  *             properties:
- *               username: 
+ *               visitor_id: 
  *                 type: string
  *     responses:
  *       200:
@@ -367,7 +367,25 @@ app.delete('/user/deleteVisitor', async (req, res) => {
  *       properties:
  *         _id: 
  *           type: string
- *         visitor_name: 
+ *         visitor_id: 
+ *           type: string
+ *         visitor_name:
+ *           type: string
+ *         visitor_age:
+ *           type: string
+ *         visitor_address:
+ *           type: string
+ *         visitor_city:
+ *           type: string
+ *         visitor_email:
+ *           type: string
+ *         visitor_phone:
+ *           type: string
+ *         visitor_ic:
+ *           type: string
+ *         visitor_date:
+ *           type: string
+ *         reserve_id:
  *           type: string
  */
 
@@ -399,7 +417,7 @@ app.delete('/user/deleteReservation', async (req, res) => {
  *           schema: 
  *             type: object
  *             properties:
- *               username: 
+ *               reservation_id: 
  *                 type: string
  *     responses:
  *       200:
@@ -420,6 +438,16 @@ app.delete('/user/deleteReservation', async (req, res) => {
  *       type: object
  *       properties:
  *         _id: 
+ *           type: string
+ *         reserve_id: 
+ *           type: string
+ *         reserve_vehicle: 
+ *           type: string
+ *         reserve_date: 
+ *           type: string
+ *         reserve_plate: 
+ *           type: string
+ *         visitor_id: 
  *           type: string
  */
 
