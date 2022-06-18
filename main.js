@@ -381,6 +381,7 @@ app.delete('/user/deleteReservation', async (req, res) => {
 	} catch (e) {
 		console.error(`Internal server error, ${e}`)
 		res.status(500).json(e)
+
 	}
 })
 
@@ -759,7 +760,6 @@ app.get('/visitor/:id', async (req, res) => {
  *         reserve_id:
  *           type: string
  */
-
 
 app.get('/reservation/:id', async (req, res) => {
 	console.log(req.body);
