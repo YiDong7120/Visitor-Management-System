@@ -28,9 +28,7 @@ const options = {
 		info: {
 			title: 'Hospital Visitor Management System',
 			version: '1.0.0',
-			description: 'For academic purposes only! - BENR 2423 Database and Cloud System',
-			description: 'PATCH and DELETE requests do not require authorisation as the role can only be set by the backend system administrator',
-			description: 'A user/security cannot choose the role to be a normal user/security or admin during registeration'
+			description: 'For academic purposes only! - BENR 2423 Database and Cloud System. PATCH and DELETE requests do not require authorisation as the role can only be set by the backend system administrator. A user/security cannot choose the role to be a normal user/security or admin during registeration.'
 		},
 		components: {
 			securitySchemes: {
