@@ -29,3 +29,6 @@ Visitor:
 Visitors are the ones that will be visiting the hospital at a specific time. Each visitor 
 shall only book a parking lot and confirm all of the data entered by the user (View 
 Visitor and Reservation Info).
+
+#URL
+https://benr-visitor-management-system.herokuapp.com/api-docs/#/
