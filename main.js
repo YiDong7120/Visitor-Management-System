@@ -31,12 +31,12 @@ const options = {
 			description: 'For academic purposes only! - BENR 2423 Database and Cloud System.' +
 			'Only admin required to authorise!' +
 			'A normal user/security would not need to authorise, just moving accroding to the endpoints will do.' +
-			'Feel free to contact the backend adminstrator below for admin upgrade.'
-		},
-		contact: {
-			name: 'Aik Tong',
-			email: 'andrewganaiktong@gmail.com',
-			url: 'https://wa.me/60182685867'
+			'Feel free to contact the backend adminstrator below for admin upgrade.',
+			contact: {
+				name: 'Aik Tong',
+				email: 'andrewganaiktong@gmail.com',
+				url: 'https://wa.me/60182685867'
+			},
 		},
 		components: {
 			securitySchemes: {
