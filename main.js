@@ -28,9 +28,9 @@ const options = {
 		info: {
 			title: 'Hospital Visitor Management System',
 			version: '1.0.0',
-			description: 'For academic purposes only! - BENR 2423 Database and Cloud System.' +
-			'Only admin required to authorise!' +
-			'A normal user/security would not need to authorise, just moving accroding to the endpoints will do.' +
+			description: 'For academic purposes only! - BENR 2423 Database and Cloud System. ' +
+			'Only admin required to authorise! ' +
+			'A normal user/security would not need to authorise, just moving accroding to the endpoints will do. ' +
 			'Feel free to contact the backend adminstrator below for admin upgrade.',
 			contact: {
 				name: 'Aik Tong',
