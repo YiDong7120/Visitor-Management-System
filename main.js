@@ -33,10 +33,10 @@ const options = {
 			'A normal user/security would not need to authorise, just moving accroding to the endpoints will do.' +
 			'Feel free to contact the backend adminstrator below for admin upgrade.'
 		},
-		contact:{
+		contact: {
 			name: 'Aik Tong',
-			url: 'https://wa.me/60182685867',
-			email: 'andrewganaiktong@gmail.com'
+			email: 'andrewganaiktong@gmail.com',
+			url: 'https://wa.me/60182685867'
 		},
 		components: {
 			securitySchemes: {
