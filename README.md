@@ -1,4 +1,5 @@
 # Visitor-Management-System
+***
 A Visitor Management System (VMS) is to systematically track and keep the record of visitors that 
 visited a secured area in a given time.  Digitizing the VMS to replace the use of paper-based solution 
 help in retrieval of information and securing data collected efficiently. Features such as parking lot 
