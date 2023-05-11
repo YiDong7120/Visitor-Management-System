@@ -57,6 +57,26 @@ At the end of the project, a very short but attractive commercial video needs to
 |![UML Sequence Diagram](Figures/UML%20Sequence%20Diagram.png)|
 |-|
 
+# Test Driven Development
+***
+|![Test Driven Development](Figures/Test%20Driven%20Development.png)|
+|-|
+
+# Cloud Database
+***
+|![Cloud Database](Figures/Secure%20Database%20Hosted%20on%20MongoDB.png)|
+|-|
+
+# Root Page
+***
+|![Root Page](Figures/Root%20Page%20on%20Cloud.png)|
+|-|
+
+# Swagger UI
+***
+|![Swagger UI](Figures/Swagger%20UI.png)|
+|-|
+
 # Presentation
 ***
 
