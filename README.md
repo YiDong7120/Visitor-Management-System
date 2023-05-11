@@ -42,6 +42,21 @@ At the end of the project, a very short but attractive commercial video needs to
 - The RESTful API Sequence Diagram
 - A RESTful server that handles all the request from client
 
+# Use Case Diagram
+***
+|![Use Case Diagram](Figures/Use%20Case%20Diagram.png)|
+|-|
+
+# Entity Relationship Diagram
+***
+|![Entity Relationship Diagram](Figures/Entity%20Relationship%20Diagram.png)|
+|-|
+
+# UML Sequence Diagram
+***
+|![UML Sequence Diagram](Figures/UML%20Sequence%20Diagram.png)|
+|-|
+
 # Presentation
 ***
 
