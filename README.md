@@ -77,6 +77,26 @@ At the end of the project, a very short but attractive commercial video needs to
 |![Swagger UI](Figures/Swagger%20UI.png)|
 |-|
 
+# Postman Login
+***
+|![Postman Login](Figures/Login%20Function%20with%20Generated%20Token%20(Postman).png)|
+|-|
+
+# Postman Response
+***
+|![Postman Response](Figures/Response%20After%20Authorisation.png)|
+|-|
+
+# Swagger Login
+***
+|![Swagger Login](Figures/Login%20Function%20with%20Generated%20Token%20(Swagger).png)|
+|-|
+
+# Authorization
+***
+|![Authorization](Figures/Avaiable%20Authorizations%20(JWT%20token).png)|
+|-|
+
 # Presentation
 ***
 
