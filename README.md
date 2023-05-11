@@ -105,6 +105,10 @@ At the end of the project, a very short but attractive commercial video needs to
 * [Aggregation pipeline for the peak hour](Figures/Aggregation%20pipeline%20for%20the%20peak%20hour.png) </br>
 * [Schema for the peak hour](Figures/Schema%20for%20the%20peak%20hour.png)
 
+# Conclusion
+As for our summary, Visitor Management System (VMS) records and tracks the number of visitors who enter a secure area at a particular time. In our situation, we've chosen the hospital as our secure location, and we'll be using the VMS to replace paper-based operations with digital procedures. We use MongoDB, Visual Studio Code, and the GitHub library to relate to the retrieval of information and safeguarding of data acquired efficiently. We opted to include services such as parking lot booking, as well as extra metrics such as peak visitor hours of operation in our project.
+For security reasons, we have enhanced the security of our proposed system by using encryption, authentication, and authorization. All possible exception handlings are properly implemented and tested to avoid the malfunction of our source codes. To make our product more commercial in the market, we did the analysis of peak hours of visiting time which is during lunchtime (12 p.m. until 1 p.m.) and off work time (6 p.m. until 7 p.m.).
+
 # Presentation
 ***
 [![Visitor Management System](https://img.youtube.com/vi/u39l5Jeie8o/0.jpg)](https://www.youtube.com/watch?v=u39l5Jeie8o)
