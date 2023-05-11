@@ -7,6 +7,8 @@ booking shall be implemented too. Additional analytics such as peak operation ho
 needed to help distinguish your proposed VMS as compared to the established conventional software 
 in the market.
 
+# Introduction
+***
 Security: 
 
 The security department is responsible for ensuring the security and safety of the 
@@ -27,20 +29,22 @@ Visitor and Reservation Info).
 
 # About Project
 ***
-Our team is required to develop the backend solution for a VMS based on the use-case diagram as shown in Figure 1. The job scopes include (but not limited):
+Our team is required to develop the backend solution for a VMS based on the use-case diagram. The job scopes include (but not limited):
 - Design the database model using MongoDB
 - Secure the database system
 - Deploy the backend server using NodeJs
 - Develop all the relevant RESTful API secured with authentication and authorization
 - Github progress and API documentation
 
-# Presentation
-***
-At the end of the project, a very short but attractive commercial video needs to be produced which including introduction of your project, your cloud and database and demonstration of the functionality of your solution. This includes:
+At the end of the project, a very short but attractive commercial video needs to be produced which including introduction of our project, cloud and database and demonstration of the functionality of your solution. This includes:
 - The database model
 - A database hosted on Mongo Atlas
 - The RESTful API Sequence Diagram
 - A RESTful server that handles all the request from client
+
+# Presentation
+***
+
 
 #URL
 https://benr-visitor-management-system.herokuapp.com/api-docs/#/
