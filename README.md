@@ -97,6 +97,15 @@ At the end of the project, a very short but attractive commercial video needs to
 |![Authorization](Figures/Avaiable%20Authorizations%20(JWT%20token).png)|
 |-|
 
+# Data Analytics
+***
+### The report will be evaluated based on the rubric, should at least includes:
+* [Aggregation pipeline for the average age of visitors](Figures/Aggregation%20pipeline%20for%20the%20average%20age%20of%20visitors.png) </br>
+* [Pipeline in language for the average age of visitors](Figures/Pipeline%20in%20language%20for%20the%20average%20age%20of%20visitors.png) </br>
+* [Schema for the age of visitors](Figures/Schema%20for%20the%20age%20of%20visitors.png) </br>
+* [Aggregation pipeline for the peak hour](Figures/Aggregation%20pipeline%20for%20the%20peak%20hour.png) </br>
+* [Schema for the peak hour](Figures/Schema%20for%20the%20peak%20hour.png)
+
 # Presentation
 ***
 
