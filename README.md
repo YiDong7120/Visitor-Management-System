@@ -114,7 +114,5 @@ For security reasons, we have enhanced the security of our proposed system by us
 [![Visitor Management System](https://img.youtube.com/vi/u39l5Jeie8o/0.jpg)](https://www.youtube.com/watch?v=u39l5Jeie8o)
 
 # URL link
-[Legacy] https://benr-visitor-management-system.herokuapp.com/api-docs/#/
-|-|
+[Legacy] https://benr-visitor-management-system.herokuapp.com/api-docs/#/</br>
 [Migrated] https://visitormanagement.fly.dev/api-docs/#/
-|-|
