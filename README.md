@@ -115,4 +115,5 @@ For security reasons, we have enhanced the security of our proposed system by us
 
 # URL link
 https://benr-visitor-management-system.herokuapp.com/api-docs/#/
+|-|
 [Updated] https://visitormanagement.fly.dev/api-docs/#/
